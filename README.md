@@ -59,7 +59,7 @@ See the `shell/` directory for setup and management scripts:
 
 ## License
 
-This project is based on OpenCAS, which is licensed under the BSD 3-Clause License. See the LICENSE file in the `open-cas-linux/` directory for details.
+This project is based on [OpenCAS](https://github.com/Open-CAS/open-cas-linux), which is licensed under the BSD 3-Clause License. See the LICENSE file in the `open-cas-linux/` directory for details.
 
 ## Contributing
 
@@ -74,4 +74,4 @@ For questions and contributions, please contact the netCAS development team.
 
 ## Acknowledgments
 
-This project is based on the OpenCAS project by Intel. We thank the OpenCAS community for their excellent work on the caching framework. 
+This project is based on the OpenCAS project by Intel. We thank the OpenCAS community for their excellent work on the caching framework.
