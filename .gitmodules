@@ -1,3 +1,6 @@
 [submodule "open-cas-linux-mf"]
 	path = open-cas-linux-mf
 	url = https://github.com/josehu07/open-cas-linux-mf.git
+[submodule "open-cas-linux"]
+	path = open-cas-linux
+	url = https://github.com/Open-CAS/open-cas-linux.git

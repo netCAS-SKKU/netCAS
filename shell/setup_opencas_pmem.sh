@@ -41,19 +41,19 @@ if ! casadm -A -i 1 -j 1 -d /dev/disk/by-id/nvme-Linux_866827229c7923fb; then
     exit 1
 fi
 
-# Start netCAS Thread
-echo "Starting netCAS Thread..."
-if ! sudo casadm -M -i 1 -j 1; then
-    echo "Failed to start netCAS Thread"
-    exit 1
-fi
+# # Start netCAS Thread
+# echo "Starting netCAS Thread..."
+# if ! sudo casadm -M -i 1 -j 1; then
+#     echo "Failed to start netCAS Thread"
+#     exit 1
+# fi
 
-# Changing cache mode to mfcwt
-echo "Changing cache mode to mfcwt..."
-if ! sudo casadm -Q -i 1 -c mfwa --flush-cache yes; then
-    echo "Failed to change cache mode"
-    exit 1
-fi
+# # Changing cache mode to mfcwt
+# echo "Changing cache mode to mfcwt..."
+# if ! sudo casadm -Q -i 1 -c mfwa --flush-cache yes; then
+#     echo "Failed to change cache mode"
+#     exit 1
+# fi
 
 
 # Verify setup

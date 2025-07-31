@@ -6,21 +6,26 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 
-
-# Change cache mode to pmt
-echo "Changing cache mode to pmt..."
-if ! sudo casadm -Q -i 1 -c pt; then
-    echo "Failed to change cache mode"
-    exit 1
-fi
-
-# Stop netCAS Thread
-echo "Stopping netCAS Thread..."
-if ! sudo casadm -N; then
-    echo "Failed to stop netCAS Thread"
-    exit 1
-fi
-
+# Function to find available NVMe devices
+find_nvme_device() {
+    # Look for NVMe devices, prefer nvme2n1 if available
+    if [ -e /dev/nvme2n1 ]; then
+        echo "nvme2n1"
+    elif [ -e /dev/nvme1n1 ]; then
+        echo "nvme1n1"
+    elif [ -e /dev/nvme0n1 ]; then
+        echo "nvme0n1"
+    else
+        # Find any available NVMe device
+        for dev in /dev/nvme*n*; do
+            if [ -e "$dev" ]; then
+                basename "$dev"
+                return 0
+            fi
+        done
+        echo ""
+    fi
+}
 
 # Verify if a cache instance exists
 CACHE_INSTANCE=$(casadm -L | grep "^cache" | awk '{print $2}')
@@ -66,15 +71,16 @@ else
 fi
 
 # Remove NVMe metadata
-if [ -e /dev/nvme2n1 ]; then
+device=$(find_nvme_device)
+if [ -n "$device" ] && [ -e "/dev/$device" ]; then
     echo "Cleaning NVMe device metadata..."
-    if /home/chanseo/shell/disconnect-nvme.sh; then
+    if ../shell/disconnect-nvme.sh; then
         echo "NVMe device is disconnected successfully."
     else
         echo "NVMe disconnection failed."
     fi
 else
-    echo "No NVMe device found at /dev/nvme4n1"
+    echo "No NVMe device found"
 fi
 
 # Final verification
